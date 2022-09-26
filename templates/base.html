@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Dojos y Ninjas</title>{% endblock %}
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static',filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }} ">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/misestilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/tipped.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/datatables.min.css') }}" />
+
+    {% block estilos %}{% endblock %}
+
+    <script src="{{ url_for('static',filename='js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootbox.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/moment.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/toastr.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/tipped.min.js') }}"></script>       
+    <script src="{{ url_for('static',filename='js/pdfmake.min.js') }}"></script>       
+    <script src="{{ url_for('static',filename='js/vfs_fonts.js') }}"></script>       
+    <script src="{{ url_for('static',filename='js/datatables.min.js') }}"></script>       
+
+    <script>
+        $(document).ready(function () {
+            bootbox.addLocale("pancho", {
+                OK : 'Aceptar',
+                CANCEL : 'Cancelar',
+                CONFIRM : 'Confirmar'
+            });
+
+            toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            }
+            // Uso de la herramienta: en la etiqueta agregar atributo 
+            // AYUDA y colocar clase "tooltip-tipped"
+            Tipped.create('.tooltip-tipped', function (element) {
+                    return {
+                        title: "Ayuda en Pantalla",
+                        content: $(element).attr('ayuda')
+                    };
+                }, {
+                    skin: 'light',
+                }
+            );
+
+            {% if messages %}
+                {% for message in messages %}
+                    toastr.{{ message.tags }}("{{message}}");
+                {% endfor %}
+            {% endif %}
+
+        });
+        </script>
+
+        {% block scripts %}{% endblock %}
+</head>
+
+<body>
+
+    
+        {% block contenido %}{% endblock %}
+
+
+</body>
+
+</html>

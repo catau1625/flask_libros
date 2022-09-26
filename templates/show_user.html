@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Esquema Libros</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="/libros">Libros</a>
+            <a class="nav-link active" aria-current="page" href="/usuarios">Usuarios</a>
+            </div>
+        </div>
+        <div class="d-flex">
+
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Info User {{ usuario.id }}</h1>
+</div>
+
+<div class="container mt-5">
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>created_at</th>
+                <th>updated_at</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td>{{ usuario.created_at }}</td>
+                <td>{{ usuario.updated_at }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Libros Favoritos</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for favs in fav_books: %}
+            <tr>
+                <td>{{ favs.titulo }}</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+<div class="agregar_libro_form">
+    <form action="/usuario/agregar_favorito" method="post" class="col-6">
+        <h2 class="text-info">Agregar Libro a Favoritos</h2>
+        <input type="hidden" name="usuario_id" value="{{usuario.id}}">
+        <div class="form-group">
+            <label for="book_id">Libro:</label>
+            <select name="libro_id" class="form-control" >
+                {% for libro in libros_restantes: %}
+                    <option value="{{libro.id}}">{{libro.titulo}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input type="submit" value="Add Book" class="btn btn-primary">
+    </form>
+</div>
+    <a class="btn btn-primary" href="/"><i class="fa fa-flag-checkered" aria-hidden="true"></i> Inicio</a>
+</div>
+
+{% endblock %}

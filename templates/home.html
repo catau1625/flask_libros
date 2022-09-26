@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Esquema Libros</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="/libros">Libros</a>
+            <a class="nav-link active" aria-current="page" href="/usuarios">Usuarios</a>
+            </div>
+        </div>
+        <div class="d-flex">
+
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Libros Disponibles</h1>
+</div>
+
+<div class="container mt-5">
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>titulo</th>
+                <th>Num de Paginas</th>
+                <th>created_at</th>
+                <th>updated_at</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in libros: %}
+            <tr>
+                <td>{{ libro.id }}</td>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.pag_num }}</td>
+                <td>{{ libro.created_at }}</td>
+                <td>{{ libro.updated_at }}</td>
+                <td> <a class="btn btn-outline-primary btn-sm" href="/libro/show/{{ libro.id }}"><i class="fa fa-search-plus fa-lg" aria-hidden="true"></i></a>  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="/libro/crear"><i class="fa fa-flag-checkered" aria-hidden="true"></i> Agregar Libro</a>
+</div>
+
+{% endblock %}
+
